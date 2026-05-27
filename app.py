@@ -27,7 +27,7 @@ st.header("2. Previsualización del dataset")
 st.dataframe(full_data.head())
 
 # 2.- Exploración inicial de Datos
-modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["Relación de Miembros Activos versus Clientes que se han ido", "Relación de Años de permanencia laboral versus Clientes que se han ido", "Relación de Número de Productos versus Clientes que se han ido", "Relación de Género del Cliente versus Clientes que se han ido", "Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)"] )
+modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["Relación de Miembros Activos versus Clientes que se han ido", "Relación de Años de permanencia laboral versus Clientes que se han ido", "Relación de Número de Productos versus Clientes que se han ido", "Relación de Género del Cliente versus Clientes que se han ido", "Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)", "Graficar la distribución de edades según el estado de abandono"] )
 
 if modulo  == "Relación de Miembros Activos versus Clientes que se han ido":
     # 2.1. Relación de Miembros Activos versus Clientes que se han ido
@@ -100,5 +100,13 @@ elif modulo  == "Cantidad de clientes que permanecen (0) vs. clientes que abando
         ) * 100
     ).round(2)
     st.dataframe(resultado)
-    
+# 2.6. Graficar la distribución de edades según el estado de abandono
+elif modulo  == "Graficar la distribución de edades según el estado de abandono":
+    plt.figure(figsize=(12, 6))
+    sns.kdeplot(data=full_data, x='Age', hue='Exited', fill=True)
+    plt.title('Distribución de edades según el estado de abandono (Exited)')
+    plt.xlabel('Edad')
+    plt.ylabel('Densidad')
+    plt.show()
+
 
