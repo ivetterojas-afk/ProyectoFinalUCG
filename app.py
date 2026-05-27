@@ -31,7 +31,11 @@ st.dataframe(full_data.head())
 resultado = (
     full_data.groupby("IsActiveMember")["Exited"]
     .mean()
+    .mul(100)
+    .round(2)
     .reset_index()
 )
+
+resultado["Exited"] = resultado["Exited"].astype(str) + "%"
 
 st.dataframe(resultado)
