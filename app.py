@@ -67,3 +67,4 @@ elif modulo  == "Relación de Número de Productos versus Clientes que se han id
     )
     resultado["NumOfProducts"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
+    
