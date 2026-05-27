@@ -8,7 +8,7 @@ st.title("Proyecto final UCG")
 st.sidebar.title("Parámetros")
 st.sidebar.image("Python_logo.png")
 
-# Carga de datos
+# 1.- cargar un dataset
 st.sidebar.header("1. Carga del dataset")
 archivo = st.sidebar.file_uploader("Suba el archivo CSV", type=["csv"])
 
@@ -24,7 +24,7 @@ if archivo:
 
 full_data = pd.read_csv("Churn_Modelling.csv", index_col=0)
 
-# Previsualización
+# 2.- Exploración inicial de Datos
 st.header("2. Previsualización del dataset")
 st.dataframe(full_data.head())
 
