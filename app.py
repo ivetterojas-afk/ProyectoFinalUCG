@@ -23,12 +23,14 @@ if archivo:
 
 
 full_data = pd.read_csv("Churn_Modelling.csv", index_col=0)
+st.header("2. Previsualización del dataset")
+st.dataframe(full_data.head())
 
 # 2.- Exploración inicial de Datos
 st.header("2. Exploración inicial de Datos")
 
-# 2.1. Relación de Miembros Activos con Miembros que se han ido
-st.subheader("2.1. Relación de Miembros Activos con Miembros que se han ido")
+# 2.1. Relación de Miembros Activos versus Clientes que se han ido
+st.subheader("2.1. Relación de Clientes Activos versus Clientes que se han ido")
 resultado = (
     full_data.groupby("IsActiveMember")["Exited"]
     .mean()
@@ -38,5 +40,20 @@ resultado = (
 )
 
 resultado["Exited"] = resultado["Exited"].astype(str) + "%"
+
+# 2.2. Relación de Años de permanencia laboral versus Clientes que se han ido
+st.subheader("\n2.2. Relación de Años de permanencia laboral versus Clientes que se han ido")
+resultado = (
+    full_data.groupby("Tenure")["Exited"]
+    .mean()
+    .mul(100)
+    .round(2)
+    .reset_index()
+)
+
+resultado["Tenure"] = resultado["Exited"].astype(str) + "%"
+
+st.dataframe(resultado)
+
 
 st.dataframe(resultado)
