@@ -21,5 +21,11 @@ if archivo:
     st.header("2. Previsualización del dataset")
     st.dataframe(df.head())
 
-full_data=pd.read_csv("/kaggle/input/datasets/saurabhbadole/bank-customer-churn-prediction-dataset/Churn_Modelling.csv",index_col=0)
+
+full_data = pd.read_csv("Churn_Modelling.csv", index_col=0)
+
+# Previsualización
+full_data.header("2. Previsualización del dataset")
+full_data.dataframe(df.head())
+
 
