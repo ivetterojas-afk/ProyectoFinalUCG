@@ -79,8 +79,10 @@ elif modulo  == "Relación de Género del Cliente versus Clientes que se han ido
     st.dataframe(resultado)
 # 2.5. Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)
 elif modulo  == "Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)":
-    print("Distribución de Clientes:")
-    print(full_data['Exited'].value_counts())
+    st.write("Distribución de Clientes:")
+    resultado = full_data["Exited"].value_counts().reset_index()
+    resultado.columns = ["Exited", "Cantidad"]
+    st.dataframe(resultado)
     # Edad promedio (según estado de abandono):
     print("Edad promedio (según estado de abandono):")
     print(full_data.groupby('Exited')['Age'].mean())
