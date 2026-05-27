@@ -29,26 +29,41 @@ st.dataframe(full_data.head())
 # 2.- Exploración inicial de Datos
 st.header("2. Exploración inicial de Datos")
 
-# 2.1. Relación de Miembros Activos versus Clientes que se han ido
-st.subheader("2.1. Relación de Clientes Activos versus Clientes que se han ido")
-resultado = (
-    full_data.groupby("IsActiveMember")["Exited"]
-    .mean()
-    .mul(100)
-    .round(2)
-    .reset_index()
-)
-resultado["Exited"] = resultado["Exited"].astype(str) + "%"
-st.dataframe(resultado)
+modulo = st.sidebar.selectbox("Seleccione un módulo", ["Relación de Miembros Activos versus Clientes que se han ido", "Relación de Años de permanencia laboral versus Clientes que se han ido", " Relación de Número de Productos versus Clientes que se han ido"] )
 
+if modulo  == "Relación de Miembros Activos versus Clientes que se han ido":
+    # 2.1. Relación de Miembros Activos versus Clientes que se han ido
+    st.subheader("2.1. Relación de Clientes Activos versus Clientes que se han ido")
+    resultado = (
+        full_data.groupby("IsActiveMember")["Exited"]
+        .mean()
+        .mul(100)
+        .round(2)
+        .reset_index()
+    )
+    resultado["Exited"] = resultado["Exited"].astype(str) + "%"
+    st.dataframe(resultado)
 # 2.2. Relación de Años de permanencia laboral versus Clientes que se han ido
-st.subheader("\n2.2. Relación de Años de permanencia laboral versus Clientes que se han ido")
-resultado = (
-    full_data.groupby("Tenure")["Exited"]
-    .mean()
-    .mul(100)
-    .round(2)
-    .reset_index()
-)
-resultado["Tenure"] = resultado["Exited"].astype(str) + "%"
-st.dataframe(resultado)
+elif modulo  == "Relación de Años de permanencia laboral versus Clientes que se han ido":
+    st.subheader("\n2.2. Relación de Años de permanencia laboral versus Clientes que se han ido")
+    resultado = (
+        full_data.groupby("Tenure")["Exited"]
+        .mean()
+        .mul(100)
+        .round(2)
+        .reset_index()
+    )
+    resultado["Tenure"] = resultado["Exited"].astype(str) + "%"
+    st.dataframe(resultado)
+# 2.3. Relación de Número de Productos versus Clientes que se han ido
+elif modulo  == "Relación de Número de Productos versus Clientes que se han ido":
+    st.subheader("\n2.3. Relación de Número de Productos versus Clientes que se han ido")
+    resultado = (
+        full_data.groupby("NumOfProducts")["Exited"]
+        .mean()
+        .mul(100)
+        .round(2)
+        .reset_index()
+    )
+    resultado["NumOfProducts"] = resultado["Exited"].astype(str) + "%"
+    st.dataframe(resultado)
