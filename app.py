@@ -53,7 +53,7 @@ elif modulo  == "Relación de Años de permanencia laboral versus Clientes que s
         .round(2)
         .reset_index()
     )
-    resultado["Tenure"] = resultado["Exited"].astype(str) + "%"
+    resultado["Exited"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
 # 2.3. Relación de Número de Productos versus Clientes que se han ido
 elif modulo  == "Relación de Número de Productos versus Clientes que se han ido":
@@ -65,6 +65,6 @@ elif modulo  == "Relación de Número de Productos versus Clientes que se han id
         .round(2)
         .reset_index()
     )
-    resultado["NumOfProducts"] = resultado["Exited"].astype(str) + "%"
+    resultado["Exited"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
     
