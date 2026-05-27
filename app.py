@@ -25,7 +25,7 @@ if archivo:
 full_data = pd.read_csv("Churn_Modelling.csv", index_col=0)
 
 # Previsualización
-full_data.header("2. Previsualización del dataset")
-full_data.dataframe(df.head())
+st.header("2. Previsualización del dataset")
+st.dataframe(full_data.head())
 
 
