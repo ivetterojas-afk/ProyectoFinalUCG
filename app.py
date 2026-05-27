@@ -102,11 +102,15 @@ elif modulo  == "Cantidad de clientes que permanecen (0) vs. clientes que abando
     st.dataframe(resultado)
 # 2.6. Graficar la distribución de edades según el estado de abandono
 elif modulo  == "Graficar la distribución de edades según el estado de abandono":
-    plt.figure(figsize=(12, 6))
-    sns.kdeplot(data=full_data, x='Age', hue='Exited', fill=True)
-    plt.title('Distribución de edades según el estado de abandono (Exited)')
-    plt.xlabel('Edad')
-    plt.ylabel('Densidad')
-    plt.show()
-
-
+    fig, ax = plt.subplots(figsize=(12, 6))
+    sns.kdeplot(
+    data=full_data,
+    x="Age",
+    hue="Exited",
+    fill=True,
+    ax=ax
+    )
+    ax.set_title("Distribución de edades según abandono")
+    ax.set_xlabel("Edad")
+    ax.set_ylabel("Densidad")
+    st.pyplot(fig)
