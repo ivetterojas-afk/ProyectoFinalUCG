@@ -20,3 +20,4 @@ if archivo:
     # Previsualización
     st.header("2. Previsualización del dataset")
     st.dataframe(df.head())
+
