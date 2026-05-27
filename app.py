@@ -29,7 +29,7 @@ st.dataframe(full_data.head())
 # 2.- Exploración inicial de Datos
 st.header("2. Exploración inicial de Datos")
 
-modulo = st.sidebar.selectbox("Seleccione un módulo", ["Relación de Miembros Activos versus Clientes que se han ido", "Relación de Años de permanencia laboral versus Clientes que se han ido", " Relación de Número de Productos versus Clientes que se han ido"] )
+modulo = st.sidebar.selectbox("Seleccione un módulo", ["Relación de Miembros Activos versus Clientes que se han ido", "Relación de Años de permanencia laboral versus Clientes que se han ido", "Relación de Número de Productos versus Clientes que se han ido"] )
 
 if modulo  == "Relación de Miembros Activos versus Clientes que se han ido":
     # 2.1. Relación de Miembros Activos versus Clientes que se han ido
