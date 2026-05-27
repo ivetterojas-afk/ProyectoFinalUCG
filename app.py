@@ -28,9 +28,10 @@ full_data = pd.read_csv("Churn_Modelling.csv", index_col=0)
 st.header("2. Previsualización del dataset")
 st.dataframe(full_data.head())
 
-resultado = full_data.groupby("IsActiveMember")["Exited"].mean()
+resultado = (
+    full_data.groupby("IsActiveMember")["Exited"]
+    .mean()
+    .reset_index()
+)
 
-fig, ax = plt.subplots()
-resultado.plot(kind="bar", ax=ax)
-
-st.pyplot(fig)
+st.dataframe(resultado)
