@@ -38,8 +38,8 @@ resultado = (
     .round(2)
     .reset_index()
 )
-
 resultado["Exited"] = resultado["Exited"].astype(str) + "%"
+st.dataframe(resultado)
 
 # 2.2. Relación de Años de permanencia laboral versus Clientes que se han ido
 st.subheader("\n2.2. Relación de Años de permanencia laboral versus Clientes que se han ido")
@@ -50,10 +50,5 @@ resultado = (
     .round(2)
     .reset_index()
 )
-
 resultado["Tenure"] = resultado["Exited"].astype(str) + "%"
-
-st.dataframe(resultado)
-
-
 st.dataframe(resultado)
