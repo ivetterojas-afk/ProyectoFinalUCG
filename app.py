@@ -114,3 +114,4 @@ elif modulo  == "Graficar la distribución de edades según el estado de abandon
     ax.set_xlabel("Edad")
     ax.set_ylabel("Densidad")
     st.pyplot(fig)
+
