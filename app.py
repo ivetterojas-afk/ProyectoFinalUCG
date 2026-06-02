@@ -179,6 +179,28 @@ if moduloPresentacionResultados  == "Modelo 1":
     
     # Entrenar
     model.fit(X_train, y_train)
+
+    st.write("Predicciones:")
+    st.write(y_pred)
+
+    resultado = X_test.copy()
+
+    resultado["Real"] = y_test.values
+    resultado["Predicción"] = y_pred
+    
+    st.write("Comparación:")
+    st.dataframe(resultado.head(20))
+
+    accuracy = accuracy_score(y_test, y_pred)
+
+    st.write("Precisión del modelo:", accuracy)
     
     # Predicción
     y_pred = model.predict(X_test)
+
+    cm = confusion_matrix(y_test, y_pred)
+    
+    st.write("Matriz de confusión:")
+    st.write(cm)
+
+    st.text(classification_report(y_test, y_pred))
