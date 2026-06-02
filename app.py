@@ -29,19 +29,19 @@ st.dataframe(full_data.head())
 # 2.- Exploración inicial de Datos
 modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["Selecciona",
                                                                              "Relación de Clientes Activos versus Clientes que se han ido", 
-                                                                             "Relación de Años de permanencia laboral versus Clientes que se han ido", 
-                                                                             "Relación de Número de Productos versus Clientes que se han ido", 
-                                                                             "Relación de Género del Cliente versus Clientes que se han ido", 
+                                                                             "Relación de Años de permanencia laboral versus Clientes que han abandonado", 
+                                                                             "Relación de Número de Productos versus Clientes que se han abandonado", 
+                                                                             "Relación de Género del Cliente versus Clientes que se han abandonado", 
                                                                              "Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)", 
                                                                              "Graficar la distribución de edades según el estado de abandono", 
                                                                              "Graficar la distribución de Balance según el estado de abandono"] )
 
 if modulo  == "Selecciona":
     pass
-elif modulo  == "Relación de Clientes Activos versus Clientes que se han ido":
+elif modulo  == "Relación de Clientes Activos versus Clientes que han abandonado":
     pass
     # 2.1. Relación de Miembros Activos versus Clientes que se han ido
-    st.subheader("2.1. Relación de Clientes Activos versus Clientes que se han ido")
+    st.subheader("2.1. Relación de Clientes Activos versus Clientes que se han abandonado")
     resultado = (
         full_data.groupby("IsActiveMember")["Exited"]
         .mean()
@@ -52,9 +52,9 @@ elif modulo  == "Relación de Clientes Activos versus Clientes que se han ido":
     resultado["Exited"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
 # 2.2. Relación de Años de permanencia laboral versus Clientes que se han ido
-elif modulo  == "Relación de Años de permanencia laboral versus Clientes que se han ido":
+elif modulo  == "Relación de Años de permanencia laboral versus Clientes que se han abandonado":
     pass
-    st.subheader("\n2.2. Relación de Años de permanencia laboral versus Clientes que se han ido")
+    st.subheader("\n2.2. Relación de Años de permanencia laboral versus Clientes que se han abandonado")
     resultado = (
         full_data.groupby("Tenure")["Exited"]
         .mean()
@@ -65,8 +65,8 @@ elif modulo  == "Relación de Años de permanencia laboral versus Clientes que s
     resultado["Exited"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
 # 2.3. Relación de Número de Productos versus Clientes que se han ido
-elif modulo  == "Relación de Número de Productos versus Clientes que se han ido":
-    st.subheader("\n2.3. Relación de Número de Productos versus Clientes que se han ido")
+elif modulo  == "Relación de Número de Productos versus Clientes que se han abandonado":
+    st.subheader("\n2.3. Relación de Número de Productos versus Clientes que se han abandonado")
     resultado = (
         full_data.groupby("NumOfProducts")["Exited"]
         .mean()
@@ -77,8 +77,8 @@ elif modulo  == "Relación de Número de Productos versus Clientes que se han id
     resultado["Exited"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
 # 2.4. Relación de Género del Cliente versus Clientes que se han ido
-elif modulo  == "Relación de Género del Cliente versus Clientes que se han ido":
-    st.subheader("\n2.4. Relación de Género del Cliente versus Clientes que se han ido")
+elif modulo  == "Relación de Género del Cliente versus Clientes que se han abandonado":
+    st.subheader("\n2.4. Relación de Género del Cliente versus Clientes que se han abandonado")
     resultado = (
         full_data.groupby("Gender")["Exited"]
         .mean()
