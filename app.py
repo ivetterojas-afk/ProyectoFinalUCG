@@ -119,7 +119,14 @@ elif modulo  == "Graficar la distribución de edades según el estado de abandon
     ax.set_ylabel("Densidad")
     st.pyplot(fig)
 elif modulo == "Graficar la distribución de Balance según el estado de abandono":
-    sns.kdeplot(data=full_data,x="Balance",hue="Exited",fill=True)
+    fig, ax = plt.subplots(figsize=(12, 6))
+    sns.kdeplot(
+    data=full_data,
+    x="Balance",
+    hue="Exited",
+    fill=True,
+    ax=ax
+    )
     ax.set_title("Distribución de Balance según el estado de abandono")
     ax.set_xlabel("Balance")
     ax.set_ylabel("Densidad")
