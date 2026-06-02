@@ -27,7 +27,8 @@ st.header("2. Previsualización del dataset")
 st.dataframe(full_data.head())
 
 # 2.- Exploración inicial de Datos
-modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["Relación de Clientes Activos versus Clientes que se han ido", 
+modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["",
+                                                                             "Relación de Clientes Activos versus Clientes que se han ido", 
                                                                              "Relación de Años de permanencia laboral versus Clientes que se han ido", 
                                                                              "Relación de Número de Productos versus Clientes que se han ido", 
                                                                              "Relación de Género del Cliente versus Clientes que se han ido", 
@@ -35,7 +36,9 @@ modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["R
                                                                              "Graficar la distribución de edades según el estado de abandono", 
                                                                              "Graficar la distribución de Balance según el estado de abandono"] )
 
-if modulo  == "Relación de Clientes Activos versus Clientes que se han ido":
+if modulo  == "":
+    pass
+elif modulo  == "Relación de Clientes Activos versus Clientes que se han ido":
     # 2.1. Relación de Miembros Activos versus Clientes que se han ido
     st.subheader("2.1. Relación de Clientes Activos versus Clientes que se han ido")
     resultado = (
@@ -136,8 +139,11 @@ elif modulo == "Graficar la distribución de Balance según el estado de abandon
 
 # 3.- Presentación Resultados
 moduloPresentacionResultados = st.sidebar.selectbox("Presentación Resultados:", 
-                                                    ["Modelo 1"]) 
-if moduloPresentacionResultados  == "Modelo 1":
+                                                    ["",
+                                                     "Modelo 1"]) 
+if moduloPresentacionResultados  == "":
+    pass
+elif moduloPresentacionResultados  == "Modelo 1":
     # 2.1. Modelo 1
         from sklearn.model_selection import train_test_split
         from sklearn.ensemble import RandomForestClassifier
