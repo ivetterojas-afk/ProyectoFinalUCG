@@ -143,24 +143,42 @@ if moduloPresentacionResultados  == "Modelo 1":
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.metrics import classification_report, confusion_matrix
     
-    # Nuestra variable objetivo (y) es “Exited”, mientras que las demás corresponden a las características o variables de entrada (X).
+    # Eliminar columnas que no sirven para entrenar
+    full_data = full_data.drop(['Surname', 'CustomerId'], axis=1)
+    
+    # Convertir texto a números
+    full_data = pd.get_dummies(
+        full_data,
+        columns=['Geography', 'Gender'],
+        drop_first=True
+    )
+    
+    # Variable objetivo
     X = full_data.drop('Exited', axis=1)
     y = full_data['Exited']
     
-    # Separamos los datos en un 80% para entrenamiento y un 20% para prueba.
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    # Revisar si hay valores vacíos
+    print(X.isnull().sum())
     
-    print("Tamaño del conjunto de entrenamiento:", X_train.shape)
-    print("Tamaño del conjunto de prueba:", X_test.shape)
-
-    # Tamaño del conjunto de entrenamiento: (8000, 12)
-    # Tamaño del conjunto de prueba: (2000, 12)
-
-    # Crear el modelo
-    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    # Si hay vacíos, rellenarlos
+    X = X.fillna(0)
     
-    # Entrenar el modelo
+    # Separar datos
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=0.2,
+        random_state=42
+    )
+    
+    # Crear modelo
+    model = RandomForestClassifier(
+        n_estimators=100,
+        random_state=42
+    )
+    
+    # Entrenar
     model.fit(X_train, y_train)
     
-    # Hacer predicciones sobre el conjunto de prueba
+    # Predicción
     y_pred = model.predict(X_test)
