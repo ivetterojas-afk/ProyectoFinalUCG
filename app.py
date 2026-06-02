@@ -147,7 +147,10 @@ if moduloPresentacionResultados  == "":
     pass
 elif moduloPresentacionResultados  == "Modelo 1":
         # Espacio donde se mostrará todo
-        contenido = st.empty()
+        with contenido.container():
+        st.title("Random Forest")
+        st.write("Aquí salen los datos del modelo")
+
         # 2.1. Modelo 1
         from sklearn.model_selection import train_test_split
         from sklearn.ensemble import RandomForestClassifier
