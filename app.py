@@ -27,7 +27,7 @@ st.header("2. Previsualización del dataset")
 st.dataframe(full_data.head())
 
 # 2.- Exploración inicial de Datos
-modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["",
+modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["Selecciona",
                                                                              "Relación de Clientes Activos versus Clientes que se han ido", 
                                                                              "Relación de Años de permanencia laboral versus Clientes que se han ido", 
                                                                              "Relación de Número de Productos versus Clientes que se han ido", 
@@ -36,7 +36,7 @@ modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", [""
                                                                              "Graficar la distribución de edades según el estado de abandono", 
                                                                              "Graficar la distribución de Balance según el estado de abandono"] )
 
-if modulo  == "":
+if modulo  == "Selecciona":
     pass
 elif modulo  == "Relación de Clientes Activos versus Clientes que se han ido":
     pass
@@ -141,9 +141,16 @@ elif modulo == "Graficar la distribución de Balance según el estado de abandon
 
 # 3.- Presentación Resultados
 moduloPresentacionResultados = st.sidebar.selectbox("Presentación Resultados:", 
-                                                    ["",
+                                                    ["Selecciona",
                                                      "Modelo 1"]) 
-if moduloPresentacionResultados  == "":
+# Espacio donde se mostrará todo
+contenido = st.empty()
+
+# Si no hay selección → pantalla limpia
+if modulo == "Selecciona" and moduloPresentacionResultados == "Selecciona":
+    contenido.empty()
+    
+if moduloPresentacionResultados  == "Selecciona":
     pass
 elif moduloPresentacionResultados  == "Modelo 1":
         # Espacio donde se mostrará todo
