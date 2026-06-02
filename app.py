@@ -139,68 +139,74 @@ moduloPresentacionResultados = st.sidebar.selectbox("Presentación Resultados:",
                                                     ["Modelo 1"]) 
 if moduloPresentacionResultados  == "Modelo 1":
     # 2.1. Modelo 1
-    from sklearn.model_selection import train_test_split
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.metrics import classification_report, confusion_matrix
-    
-    # Eliminar columnas que no sirven para entrenar
-    full_data = full_data.drop(['Surname', 'CustomerId'], axis=1)
-    
-    # Convertir texto a números
-    full_data = pd.get_dummies(
-        full_data,
-        columns=['Geography', 'Gender'],
-        drop_first=True
-    )
-    
-    # Variable objetivo
-    X = full_data.drop('Exited', axis=1)
-    y = full_data['Exited']
-    
-    # Revisar si hay valores vacíos
-    print(X.isnull().sum())
-    
-    # Si hay vacíos, rellenarlos
-    X = X.fillna(0)
-    
-    # Separar datos
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.2,
-        random_state=42
-    )
-    
-    # Crear modelo
-    model = RandomForestClassifier(
-        n_estimators=100,
-        random_state=42
-    )
-    
-    # Entrenar
-    model.fit(X_train, y_train)
-
-    st.write("Predicciones:")
-    st.write(y_pred)
-
-    resultado = X_test.copy()
-
-    resultado["Real"] = y_test.values
-    resultado["Predicción"] = y_pred
-    
-    st.write("Comparación:")
-    st.dataframe(resultado.head(20))
-
-    accuracy = accuracy_score(y_test, y_pred)
-
-    st.write("Precisión del modelo:", accuracy)
-    
-    # Predicción
-    y_pred = model.predict(X_test)
-
-    cm = confusion_matrix(y_test, y_pred)
-    
-    st.write("Matriz de confusión:")
-    st.write(cm)
-
-    st.text(classification_report(y_test, y_pred))
+        from sklearn.model_selection import train_test_split
+        from sklearn.ensemble import RandomForestClassifier
+        from sklearn.metrics import (
+            classification_report,
+            confusion_matrix,
+            accuracy_score
+        )
+        
+        # Eliminar columnas que no sirven
+        full_data = full_data.drop(['Surname', 'CustomerId'], axis=1)
+        
+        # Convertir texto a números
+        full_data = pd.get_dummies(
+            full_data,
+            columns=['Geography', 'Gender'],
+            drop_first=True
+        )
+        
+        # Variable objetivo
+        X = full_data.drop('Exited', axis=1)
+        y = full_data['Exited']
+        
+        # Revisar vacíos
+        X = X.fillna(0)
+        
+        # Separar datos
+        X_train, X_test, y_train, y_test = train_test_split(
+            X,
+            y,
+            test_size=0.2,
+            random_state=42
+        )
+        
+        # Crear modelo
+        model = RandomForestClassifier(
+            n_estimators=100,
+            random_state=42
+        )
+        
+        # Entrenar
+        model.fit(X_train, y_train)
+        
+        # Predicción
+        y_pred = model.predict(X_test)
+        
+        # Mostrar predicciones
+        st.write("Predicciones:")
+        st.write(y_pred)
+        
+        # Comparación
+        resultado = X_test.copy()
+        resultado["Real"] = y_test.values
+        resultado["Predicción"] = y_pred
+        
+        st.write("Comparación:")
+        st.dataframe(resultado.head(20))
+        
+        # Precisión
+        accuracy = accuracy_score(y_test, y_pred)
+        
+        st.write("Precisión del modelo:")
+        st.write(accuracy)
+        
+        # Matriz de confusión
+        cm = confusion_matrix(y_test, y_pred)
+        
+        st.write("Matriz de confusión:")
+        st.write(cm)
+        
+        # Reporte
+        st.text(classification_report(y_test, y_pred))
