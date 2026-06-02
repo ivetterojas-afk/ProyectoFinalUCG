@@ -39,6 +39,7 @@ modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", [""
 if modulo  == "":
     pass
 elif modulo  == "Relación de Clientes Activos versus Clientes que se han ido":
+    pass
     # 2.1. Relación de Miembros Activos versus Clientes que se han ido
     st.subheader("2.1. Relación de Clientes Activos versus Clientes que se han ido")
     resultado = (
@@ -52,6 +53,7 @@ elif modulo  == "Relación de Clientes Activos versus Clientes que se han ido":
     st.dataframe(resultado)
 # 2.2. Relación de Años de permanencia laboral versus Clientes que se han ido
 elif modulo  == "Relación de Años de permanencia laboral versus Clientes que se han ido":
+    pass
     st.subheader("\n2.2. Relación de Años de permanencia laboral versus Clientes que se han ido")
     resultado = (
         full_data.groupby("Tenure")["Exited"]
@@ -144,7 +146,8 @@ moduloPresentacionResultados = st.sidebar.selectbox("Presentación Resultados:",
 if moduloPresentacionResultados  == "":
     pass
 elif moduloPresentacionResultados  == "Modelo 1":
-    # 2.1. Modelo 1
+        pass
+        # 2.1. Modelo 1
         from sklearn.model_selection import train_test_split
         from sklearn.ensemble import RandomForestClassifier
         from sklearn.metrics import (
