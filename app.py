@@ -31,7 +31,9 @@ modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["R
                                                                              "Relación de Años de permanencia laboral versus Clientes que se han ido", 
                                                                              "Relación de Número de Productos versus Clientes que se han ido", 
                                                                              "Relación de Género del Cliente versus Clientes que se han ido", 
-                                                                             "Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)", "Graficar la distribución de edades según el estado de abandono", "Graficar la distribución de Balance según el estado de abandono"] )
+                                                                             "Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)", 
+                                                                             "Graficar la distribución de edades según el estado de abandono", 
+                                                                             "Graficar la distribución de Balance según el estado de abandono"] )
 
 if modulo  == "Relación de Clientes Activos versus Clientes que se han ido":
     # 2.1. Relación de Miembros Activos versus Clientes que se han ido
@@ -131,3 +133,34 @@ elif modulo == "Graficar la distribución de Balance según el estado de abandon
     ax.set_xlabel("Balance")
     ax.set_ylabel("Densidad")
     st.pyplot(fig)
+
+# 3.- Presentación Resultados
+moduloPresentacionResultados = st.sidebar.selectbox("Presentación Resultados:", 
+                                                    ["Modelo 1"]) 
+if moduloPresentacionResultados  == "Modelo 1":
+    # 2.1. Modelo 1
+    from sklearn.model_selection import train_test_split
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.metrics import classification_report, confusion_matrix
+    
+    # Nuestra variable objetivo (y) es “Exited”, mientras que las demás corresponden a las características o variables de entrada (X).
+    X = full_data.drop('Exited', axis=1)
+    y = full_data['Exited']
+    
+    # Separamos los datos en un 80% para entrenamiento y un 20% para prueba.
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    print("Tamaño del conjunto de entrenamiento:", X_train.shape)
+    print("Tamaño del conjunto de prueba:", X_test.shape)
+
+    # Tamaño del conjunto de entrenamiento: (8000, 12)
+    # Tamaño del conjunto de prueba: (2000, 12)
+
+    # Crear el modelo
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    
+    # Entrenar el modelo
+    model.fit(X_train, y_train)
+    
+    # Hacer predicciones sobre el conjunto de prueba
+    y_pred = model.predict(X_test)
