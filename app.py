@@ -142,7 +142,7 @@ elif modulo == "Graficar la distribución de Balance según el estado de abandon
 # 3.- Presentación Resultados
 moduloPresentacionResultados = st.sidebar.selectbox("Presentación Resultados:", 
                                                     ["Selecciona",
-                                                     "Modelo 1"]) 
+                                                     "Modelo Random Forest"]) 
 # Espacio donde se mostrará todo
 contenido = st.empty()
 
@@ -152,7 +152,7 @@ if modulo == "Selecciona" and moduloPresentacionResultados == "Selecciona":
     
 if moduloPresentacionResultados  == "Selecciona":
     pass
-elif moduloPresentacionResultados  == "Modelo 1":
+elif moduloPresentacionResultados  == "Modelo Random Forest":
         # Espacio donde se mostrará todo
         with contenido.container():
             st.title("Random Forest")
