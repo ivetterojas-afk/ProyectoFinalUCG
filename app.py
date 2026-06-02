@@ -146,7 +146,8 @@ moduloPresentacionResultados = st.sidebar.selectbox("Presentación Resultados:",
 if moduloPresentacionResultados  == "":
     pass
 elif moduloPresentacionResultados  == "Modelo 1":
-        pass
+        # Espacio donde se mostrará todo
+        contenido = st.empty()
         # 2.1. Modelo 1
         from sklearn.model_selection import train_test_split
         from sklearn.ensemble import RandomForestClassifier
