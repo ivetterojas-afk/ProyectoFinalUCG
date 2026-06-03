@@ -418,18 +418,36 @@ elif moduloPresentacionResultados == "Modelo XGBoost":
         # Realizar predicciones
         y_pred_xgb = xgb_model.predict(X_test)
 
-        from sklearn.metrics import classification_report
         # Ver resultados
-        print("--- Rendimiento del Modelo XGBoost ---")
-        print(classification_report(y_test, y_pred_xgb))
-
-        import matplotlib.pyplot as plt
-        
-        # Obtener la importancia de las variables
-        feat_importances = pd.Series(
-            xgb_model.feature_importances_,
-            index=X.columns
+        from sklearn.metrics import (
+            classification_report,
+            confusion_matrix,
+            accuracy_score
         )
+        
+        st.subheader("Resultados del Modelo XGBoost")
+        
+        # Precisión
+        accuracy = accuracy_score(y_test, y_pred_xgb)
+        
+        st.write("Precisión del modelo:")
+        st.write(accuracy)
+        
+        # Matriz de confusión
+        cm = confusion_matrix(y_test, y_pred_xgb)
+        
+        st.write("Matriz de confusión:")
+        st.write(cm)
+        
+        # Reporte de clasificación
+        st.text(classification_report(y_test, y_pred_xgb))
+                import matplotlib.pyplot as plt
+                
+                # Obtener la importancia de las variables
+                feat_importances = pd.Series(
+                    xgb_model.feature_importances_,
+                    index=X.columns
+                )
         
         # Visualizar
         plt.figure(figsize=(10,6))
