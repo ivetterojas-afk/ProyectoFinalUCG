@@ -450,9 +450,17 @@ elif moduloPresentacionResultados == "Modelo XGBoost":
         )
         
         # Visualizar
-        plt.figure(figsize=(10,6))
-        feat_importances.nlargest(10).plot(kind='barh')
-        plt.title('Las 10 variables más importantes que influyen en la decisión del cliente de abandonar el banco')
-        plt.xlabel('Puntaje de importancia')
-        plt.show()
-    
+        fig, ax = plt.subplots(figsize=(10,6))
+        
+        feat_importances.nlargest(10).plot(
+            kind='barh',
+            ax=ax
+        )
+        
+        ax.set_title(
+            'Las 10 variables más importantes que influyen en la decisión del cliente de abandonar el banco'
+        )
+        
+        ax.set_xlabel('Puntaje de importancia')
+        
+        st.pyplot(fig)    
