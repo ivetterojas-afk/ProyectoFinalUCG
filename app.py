@@ -354,31 +354,6 @@ elif moduloPresentacionResultados  == "Modelo Random Forest":
             accuracy_score
         )
         
-        # Eliminar columnas que no sirven
-        full_data = full_data.drop(['Surname', 'CustomerId'], axis=1)
-        
-        # Convertir texto a números
-        full_data = pd.get_dummies(
-            full_data,
-            columns=['Geography', 'Gender'],
-            drop_first=True
-        )
-        
-        # Variable objetivo
-        X = full_data.drop('Exited', axis=1)
-        y = full_data['Exited']
-        
-        # Revisar vacíos
-        X = X.fillna(0)
-        
-        # Separar datos
-        X_train, X_test, y_train, y_test = train_test_split(
-            X,
-            y,
-            test_size=0.5,
-            random_state=42
-        )
-        
         # Crear modelo
         model = RandomForestClassifier(
             n_estimators=100,
