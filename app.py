@@ -17,12 +17,12 @@ if archivo:
     st.success("Dataset cargado correctamente")
 
     # Previsualización
-    st.header("2. Previsualización del dataset")
+    st.header("1. Previsualización del dataset")
     st.dataframe(df.head())
 
 
 full_data = pd.read_csv("Churn_Modelling.csv", index_col=0)
-st.header("2. Previsualización del dataset")
+st.header("1. Previsualización del dataset")
 st.dataframe(full_data.head())
 
 # 2.- Exploración inicial de datos
