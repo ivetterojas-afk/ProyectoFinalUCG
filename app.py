@@ -26,22 +26,22 @@ st.header("1. Previsualización del dataset")
 st.dataframe(full_data.head())
 
 # 2.- Exploración inicial de datos
-exploracion = st.sidebar.selectbox("2.- Exploración inicial de Datos", ["Selecciona",
+exploracion = st.sidebar.selectbox("2.- Exploración inicial de Datos", ["Seleccione",
                                                                     "Filas y Columnas",
                                                                     "Tipos de Datos", 
                                                                     "Valores Nulos",
                                                                     "Datos Duplicados",
-                                                                    "Valores Atípicos (outliers)",
+                                                                    "Valores Atípicos (Outliers)",
                                                                     "Variables Balanceadas"])
 
-if exploracion  == "Selecciona":
+if exploracion  == "Seleccione":
     pass
 # ==========================================
-# FILAS Y COLUMNAS
+# 2.1. FILAS Y COLUMNAS
 # ==========================================
 elif exploracion == "Filas y Columnas":
 
-    st.subheader("Dimensiones del Dataset")
+    st.subheader("2.1. Dimensiones del Dataset")
 
     filas, columnas = full_data.shape
 
@@ -52,11 +52,11 @@ elif exploracion == "Filas y Columnas":
     st.dataframe(full_data.head())
 
 # ==========================================
-# TIPOS DE DATOS
+# 2.2. TIPOS DE DATOS
 # ==========================================
 elif exploracion == "Tipos de Datos":
 
-    st.subheader("Tipos de Datos")
+    st.subheader("2.2. Tipos de Datos")
 
     tipos = pd.DataFrame({
         "Variable": full_data.columns,
@@ -66,11 +66,11 @@ elif exploracion == "Tipos de Datos":
     st.dataframe(tipos)
 
 # ==========================================
-# VALORES NULOS
+# 2.3. VALORES NULOS
 # ==========================================
 elif exploracion == "Valores Nulos":
 
-    st.subheader("Valores Nulos")
+    st.subheader("2.3. Valores Nulos")
 
     nulos = full_data.isnull().sum()
 
@@ -89,11 +89,11 @@ elif exploracion == "Valores Nulos":
     st.pyplot(fig)
 
 # ==========================================
-# DATOS DUPLICADOS
+# 2.4. DATOS DUPLICADOS
 # ==========================================
 elif exploracion == "Datos Duplicados":
 
-    st.subheader("Datos Duplicados")
+    st.subheader("2.4. Datos Duplicados")
 
     duplicados = full_data.duplicated().sum()
 
@@ -103,11 +103,11 @@ elif exploracion == "Datos Duplicados":
         st.write(full_data[full_data.duplicated()].head())
 
 # ==========================================
-# OUTLIERS
+# 2.5. OUTLIERS
 # ==========================================
 elif exploracion == "Valores Atípicos (Outliers)":
 
-    st.subheader("Detección de Outliers")
+    st.subheader("2.5. Detección de Outliers")
 
     columnas_numericas = full_data.select_dtypes(
         include=["int64", "float64"]
@@ -144,11 +144,11 @@ elif exploracion == "Valores Atípicos (Outliers)":
     st.dataframe(outliers.head())
 
 # ==========================================
-# VARIABLES BALANCEADAS
+# 2.6. VARIABLES BALANCEADAS
 # ==========================================
 elif exploracion == "Variables Balanceadas":
 
-    st.subheader("Balance de la Variable Objetivo")
+    st.subheader("2.6. Balance de la Variable Objetivo")
 
     if "Exited" in full_data.columns:
 
@@ -182,6 +182,7 @@ elif exploracion == "Variables Balanceadas":
 
     else:
         st.error("La columna 'Exited' no existe en el dataset.")
+
 # 3.- Visualización de información relevante
 modulo = st.sidebar.selectbox("3.- Visualización de información Relevante:", ["Selecciona",
                                                                           "Relación de Clientes Activos versus Clientes que abandonaron", 
@@ -197,8 +198,8 @@ if modulo  == "Selecciona":
     pass
 elif modulo  == "Relación de Clientes Activos versus Clientes que abandonaron":
     pass
-    # 2.1. Relación de Miembros Activos versus Clientes que se han ido
-    st.subheader("2.1. Relación de Clientes Activos versus Clientes que abandonaron")
+    # 3.1. Relación de Miembros Activos versus Clientes que se han ido
+    st.subheader("3.1. Relación de Clientes Activos versus Clientes que abandonaron")
     resultado = (
         full_data.groupby("IsActiveMember")["Exited"]
         .mean()
@@ -211,7 +212,7 @@ elif modulo  == "Relación de Clientes Activos versus Clientes que abandonaron":
 # 2.2. Relación de Años de permanencia laboral versus Clientes que se han ido
 elif modulo  == "Relación de Años de permanencia laboral versus Clientes que abandonaron":
     pass
-    st.subheader("\n2.2. Relación de Años de permanencia laboral versus Clientes que abandonaron")
+    st.subheader("3.2. Relación de Años de permanencia laboral versus Clientes que abandonaron")
     resultado = (
         full_data.groupby("Tenure")["Exited"]
         .mean()
@@ -221,9 +222,9 @@ elif modulo  == "Relación de Años de permanencia laboral versus Clientes que a
     )
     resultado["Exited"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
-# 2.3. Relación de Número de Productos versus Clientes que se han ido
+# 3.3. Relación de Número de Productos versus Clientes que se han ido
 elif modulo  == "Relación de Número de Productos versus Clientes que abandonaron":
-    st.subheader("\n2.3. Relación de Número de Productos versus Clientes que abandonaron")
+    st.subheader("3.3. Relación de Número de Productos versus Clientes que abandonaron")
     resultado = (
         full_data.groupby("NumOfProducts")["Exited"]
         .mean()
@@ -233,9 +234,9 @@ elif modulo  == "Relación de Número de Productos versus Clientes que abandonar
     )
     resultado["Exited"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
-# 2.4. Relación de Género del Cliente versus Clientes que se han ido
+# 3.4. Relación de Género del Cliente versus Clientes que se han ido
 elif modulo  == "Relación de Género del Cliente versus Clientes que abandonaron":
-    st.subheader("\n2.4. Relación de Género del Cliente versus Clientes que abandonaron")
+    st.subheader("3.4. Relación de Género del Cliente versus Clientes que abandonaron")
     resultado = (
         full_data.groupby("Gender")["Exited"]
         .mean()
@@ -245,21 +246,21 @@ elif modulo  == "Relación de Género del Cliente versus Clientes que abandonaro
     )
     resultado["Exited"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
-# 2.5. Edad promedio (según estado de abandono)
+# 3.5. Edad promedio (según estado de abandono)
 elif modulo  == "Edad promedio (según estado de abandono)":
     # Edad promedio (según estado de abandono):
-    st.subheader("\n2.5. Edad promedio (según estado de abandono)")
+    st.subheader("3.5. Edad promedio (según estado de abandono)")
     resultado = (
         full_data.groupby("Exited")["Age"]
         .mean()
         .reset_index()
     )
     st.dataframe(resultado)    
-# 2.6. Tasa de abandono según tenencia de tarjeta de crédito
+# 3.6. Tasa de abandono según tenencia de tarjeta de crédito
 elif modulo  == "Tasa de abandono según tenencia de tarjeta de crédito":
    
     # ¿Los clientes que tienen tarjeta de crédito son más leales?
-    st.subheader("\n2.6. Tasa de abandono según tenencia de tarjeta de crédito:")
+    st.subheader("3.6. Tasa de abandono según tenencia de tarjeta de crédito:")
     resultado = (
         pd.crosstab(
             full_data["HasCrCard"],
@@ -268,7 +269,7 @@ elif modulo  == "Tasa de abandono según tenencia de tarjeta de crédito":
         ) * 100
     ).round(2)
     st.dataframe(resultado)
-# 2.6. Graficar la distribución de edades según el estado de abandono
+# 3.7. Graficar la distribución de edades según el estado de abandono
 elif modulo  == "Distribución de edades según el estado de abandono":
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.kdeplot(
@@ -282,6 +283,7 @@ elif modulo  == "Distribución de edades según el estado de abandono":
     ax.set_xlabel("Edad")
     ax.set_ylabel("Densidad")
     st.pyplot(fig)
+# 3.7. Graficar la distribución de Balance según el estado de abandono
 elif modulo == "Distribución de Balance según el estado de abandono":
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.kdeplot(
@@ -299,7 +301,8 @@ elif modulo == "Distribución de Balance según el estado de abandono":
 # 4.- Presentación Resultados
 moduloPresentacionResultados = st.sidebar.selectbox("4.- Presentación Resultados:", 
                                                     ["Selecciona",
-                                                     "Modelo Random Forest"]) 
+                                                     "Modelo Random Forest",
+                                                    "Modelo XGBoost"]) 
 # Espacio donde se mostrará todo
 contenido = st.empty()
 
@@ -387,3 +390,43 @@ elif moduloPresentacionResultados  == "Modelo Random Forest":
         
         # Reporte
         st.text(classification_report(y_test, y_pred))
+
+elif moduloPresentacionResultados == "Modelo XGBoost":
+        from xgboost import XGBClassifier
+
+        # Definimos el modelo XGBoost
+        # scale_pos_weight: da más peso a los clientes que abandonan (1)
+        # Generalmente en este dataset hay aproximadamente 4 veces más clientes que se quedan (0)
+        # que clientes que se van (1), por eso se utiliza un valor cercano a 4.
+        xgb_model = XGBClassifier(
+            scale_pos_weight=4,
+            random_state=42,
+            use_label_encoder=False,
+            eval_metric='logloss'
+        )
+        
+        # Entrenar el modelo
+        xgb_model.fit(X_train, y_train)
+        
+        # Realizar predicciones
+        y_pred_xgb = xgb_model.predict(X_test)
+        
+        # Ver resultados
+        print("--- Rendimiento del Modelo XGBoost ---")
+        print(classification_report(y_test, y_pred_xgb))
+
+        import matplotlib.pyplot as plt
+        
+        # Obtener la importancia de las variables
+        feat_importances = pd.Series(
+            xgb_model.feature_importances_,
+            index=X.columns
+        )
+        
+        # Visualizar
+        plt.figure(figsize=(10,6))
+        feat_importances.nlargest(10).plot(kind='barh')
+        plt.title('Las 10 variables más importantes que influyen en la decisión del cliente de abandonar el banco')
+        plt.xlabel('Puntaje de importancia')
+        plt.show()
+    
