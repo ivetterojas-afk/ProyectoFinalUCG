@@ -188,9 +188,10 @@ modulo = st.sidebar.selectbox("3.- Visualización de información Relevante:", [
                                                                           "Relación de Años de permanencia laboral versus Clientes que abandonaron", 
                                                                              "Relación de Número de Productos versus Clientes que abandonaron", 
                                                                              "Relación de Género del Cliente versus Clientes que abandonaron", 
-                                                                             "Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)", 
-                                                                             "Graficar la distribución de edades según el estado de abandono", 
-                                                                             "Graficar la distribución de Balance según el estado de abandono"] )
+                                                                             "Edad promedio (según estado de abandono)", 
+                                                                             "Tasa de abandono según tenencia de tarjeta de crédito",
+                                                                             "Distribución de edades según el estado de abandono", 
+                                                                             "Distribución de Balance según el estado de abandono"] )
 
 if modulo  == "Selecciona":
     pass
@@ -244,21 +245,21 @@ elif modulo  == "Relación de Género del Cliente versus Clientes que abandonaro
     )
     resultado["Exited"] = resultado["Exited"].astype(str) + "%"
     st.dataframe(resultado)
-# 2.5. Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)
-elif modulo  == "Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)":
-    st.write("Distribución de Clientes:")
-    resultado = full_data["Exited"].value_counts().reset_index()
-    resultado.columns = ["Exited", "Cantidad"]
-    st.dataframe(resultado)
+# 2.5. Edad promedio (según estado de abandono)
+elif modulo  == "Edad promedio (según estado de abandono)":
     # Edad promedio (según estado de abandono):
-    st.write("Edad promedio (según estado de abandono):")
+    st.subheader("\n2.5. Edad promedio (según estado de abandono)")
     resultado = (
         full_data.groupby("Exited")["Age"]
         .mean()
         .reset_index()
     )
-    st.dataframe(resultado)    # ¿Los clientes que tienen tarjeta de crédito son más leales?
-    st.write("Tasa de abandono según tenencia de tarjeta de crédito:")
+    st.dataframe(resultado)    
+# 2.6. Tasa de abandono según tenencia de tarjeta de crédito
+elif modulo  == "Tasa de abandono según tenencia de tarjeta de crédito":
+   
+    # ¿Los clientes que tienen tarjeta de crédito son más leales?
+    st.subheader("\n2.6. Tasa de abandono según tenencia de tarjeta de crédito:")
     resultado = (
         pd.crosstab(
             full_data["HasCrCard"],
@@ -268,7 +269,7 @@ elif modulo  == "Cantidad de clientes que permanecen (0) vs. clientes que abando
     ).round(2)
     st.dataframe(resultado)
 # 2.6. Graficar la distribución de edades según el estado de abandono
-elif modulo  == "Graficar la distribución de edades según el estado de abandono":
+elif modulo  == "Distribución de edades según el estado de abandono":
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.kdeplot(
     data=full_data,
@@ -281,7 +282,7 @@ elif modulo  == "Graficar la distribución de edades según el estado de abandon
     ax.set_xlabel("Edad")
     ax.set_ylabel("Densidad")
     st.pyplot(fig)
-elif modulo == "Graficar la distribución de Balance según el estado de abandono":
+elif modulo == "Distribución de Balance según el estado de abandono":
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.kdeplot(
     data=full_data,
