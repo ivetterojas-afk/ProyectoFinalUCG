@@ -306,6 +306,33 @@ moduloPresentacionResultados = st.sidebar.selectbox("4.- Presentación Resultado
 # Espacio donde se mostrará todo
 contenido = st.empty()
 
+from sklearn.model_selection import train_test_split
+
+# Eliminar columnas que no sirven
+data_model = full_data.drop(['Surname', 'CustomerId'], axis=1)
+
+# Convertir texto a números
+data_model = pd.get_dummies(
+    data_model,
+    columns=['Geography', 'Gender'],
+    drop_first=True
+)
+
+# Variable objetivo
+X = data_model.drop('Exited', axis=1)
+y = data_model['Exited']
+
+# Revisar vacíos
+X = X.fillna(0)
+
+# Separar datos
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.5,
+    random_state=42
+)
+
 # Si no hay selección → pantalla limpia
 if exploracion =="Selecciona" and modulo == "Selecciona" and moduloPresentacionResultados == "Selecciona":
     contenido.empty()
