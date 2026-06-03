@@ -441,13 +441,13 @@ elif moduloPresentacionResultados == "Modelo XGBoost":
         
         # Reporte de clasificación
         st.text(classification_report(y_test, y_pred_xgb))
-                import matplotlib.pyplot as plt
+        import matplotlib.pyplot as plt
                 
-                # Obtener la importancia de las variables
-                feat_importances = pd.Series(
+        # Obtener la importancia de las variables
+        feat_importances = pd.Series(
                     xgb_model.feature_importances_,
                     index=X.columns
-                )
+        )
         
         # Visualizar
         plt.figure(figsize=(10,6))
