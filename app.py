@@ -4,9 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-st.title("Proyecto final UCG")
-st.sidebar.title("Parámetros")
-st.sidebar.image("Python_logo.png")
+st.title("ANÁLISIS ABANDONO BANCARIO")
+st.sidebar.title("OPCIONES")
 
 # 1.- cargar un dataset
 st.sidebar.header("1. Carga del dataset")
@@ -27,7 +26,7 @@ st.header("2. Previsualización del dataset")
 st.dataframe(full_data.head())
 
 # 2.- Exploración inicial de datos
-exploracion = st.sidebar.selectbox("Exploración inicial de Datos", ["Selecciona",
+exploracion = st.sidebar.selectbox("2.- Exploración inicial de Datos", ["Selecciona",
                                                                     "Filas y Columnas",
                                                                     "Tipos de Datos", 
                                                                     "Valores Nulos",
@@ -184,7 +183,7 @@ elif exploracion == "Variables Balanceadas":
     else:
         st.error("La columna 'Exited' no existe en el dataset.")
 # 3.- Visualización de información relevante
-modulo = st.sidebar.selectbox("Visualización de información Relevante:", ["Selecciona",
+modulo = st.sidebar.selectbox("3.- Visualización de información Relevante:", ["Selecciona",
                                                                           "Relación de Clientes Activos versus Clientes que se han ido", 
                                                                           "Relación de Años de permanencia laboral versus Clientes que han abandonado", 
                                                                              "Relación de Número de Productos versus Clientes que se han abandonado", 
@@ -296,8 +295,8 @@ elif modulo == "Graficar la distribución de Balance según el estado de abandon
     ax.set_ylabel("Densidad")
     st.pyplot(fig)
 
-# 3.- Presentación Resultados
-moduloPresentacionResultados = st.sidebar.selectbox("Presentación Resultados:", 
+# 4.- Presentación Resultados
+moduloPresentacionResultados = st.sidebar.selectbox("4.- Presentación Resultados:", 
                                                     ["Selecciona",
                                                      "Modelo Random Forest"]) 
 # Espacio donde se mostrará todo
