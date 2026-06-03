@@ -26,10 +26,167 @@ full_data = pd.read_csv("Churn_Modelling.csv", index_col=0)
 st.header("2. Previsualización del dataset")
 st.dataframe(full_data.head())
 
-# 2.- Exploración inicial de Datos
-modulo = st.sidebar.selectbox("Exploración inicial de Datos.. Seleccione:", ["Selecciona",
-                                                                             "Relación de Clientes Activos versus Clientes que se han ido", 
-                                                                             "Relación de Años de permanencia laboral versus Clientes que han abandonado", 
+# 2.- Exploración inicial de datos
+exploracion = st.sidebar.selectbox("Exploración inicial de Datos", ["Selecciona",
+                                                                    "Filas y Columnas",
+                                                                    "Tipos de Datos", 
+                                                                    "Valores Nulos",
+                                                                    "Datos Duplicados",
+                                                                    "Valores Atípicos (outliers)",
+                                                                    "Variables Balanceadas"])
+
+if exploracion  == "Selecciona":
+    pass
+# ==========================================
+# FILAS Y COLUMNAS
+# ==========================================
+elif exploracion == "Filas y Columnas":
+
+    st.subheader("Dimensiones del Dataset")
+
+    filas, columnas = full_data.shape
+
+    st.metric("Número de Filas", filas)
+    st.metric("Número de Columnas", columnas)
+
+    st.write("Primeras filas del dataset:")
+    st.dataframe(full_data.head())
+
+# ==========================================
+# TIPOS DE DATOS
+# ==========================================
+elif exploracion == "Tipos de Datos":
+
+    st.subheader("Tipos de Datos")
+
+    tipos = pd.DataFrame({
+        "Variable": full_data.columns,
+        "Tipo de Dato": full_data.dtypes.values
+    })
+
+    st.dataframe(tipos)
+
+# ==========================================
+# VALORES NULOS
+# ==========================================
+elif exploracion == "Valores Nulos":
+
+    st.subheader("Valores Nulos")
+
+    nulos = full_data.isnull().sum()
+
+    tabla_nulos = pd.DataFrame({
+        "Variable": nulos.index,
+        "Valores Nulos": nulos.values
+    })
+
+    st.dataframe(tabla_nulos)
+
+    st.write("Total de valores nulos:", int(nulos.sum()))
+
+    fig, ax = plt.subplots()
+    nulos.plot(kind="bar", ax=ax)
+    ax.set_title("Valores Nulos por Variable")
+    st.pyplot(fig)
+
+# ==========================================
+# DATOS DUPLICADOS
+# ==========================================
+elif exploracion == "Datos Duplicados":
+
+    st.subheader("Datos Duplicados")
+
+    duplicados = full_data.duplicated().sum()
+
+    st.metric("Registros Duplicados", duplicados)
+
+    if duplicados > 0:
+        st.write(full_data[full_data.duplicated()].head())
+
+# ==========================================
+# OUTLIERS
+# ==========================================
+elif exploracion == "Valores Atípicos (Outliers)":
+
+    st.subheader("Detección de Outliers")
+
+    columnas_numericas = full_data.select_dtypes(
+        include=["int64", "float64"]
+    ).columns
+
+    variable = st.selectbox(
+        "Seleccione una variable numérica",
+        columnas_numericas
+    )
+
+    Q1 = full_data[variable].quantile(0.25)
+    Q3 = full_data[variable].quantile(0.75)
+    IQR = Q3 - Q1
+
+    limite_inferior = Q1 - 1.5 * IQR
+    limite_superior = Q3 + 1.5 * IQR
+
+    outliers = full_data[
+        (full_data[variable] < limite_inferior)
+        | (full_data[variable] > limite_superior)
+    ]
+
+    st.metric(
+        "Cantidad de Outliers",
+        len(outliers)
+    )
+
+    fig, ax = plt.subplots()
+    ax.boxplot(full_data[variable])
+    ax.set_title(f"Boxplot de {variable}")
+    st.pyplot(fig)
+
+    st.write("Primeros registros considerados outliers:")
+    st.dataframe(outliers.head())
+
+# ==========================================
+# VARIABLES BALANCEADAS
+# ==========================================
+elif exploracion == "Variables Balanceadas":
+
+    st.subheader("Balance de la Variable Objetivo")
+
+    if "Exited" in full_data.columns:
+
+        conteo = full_data["Exited"].value_counts()
+
+        porcentaje = (
+            full_data["Exited"]
+            .value_counts(normalize=True)
+            * 100
+        ).round(2)
+
+        resumen = pd.DataFrame({
+            "Cantidad": conteo,
+            "Porcentaje (%)": porcentaje
+        })
+
+        st.dataframe(resumen)
+
+        fig, ax = plt.subplots()
+        conteo.plot(kind="bar", ax=ax)
+        ax.set_title("Distribución de la Variable Exited")
+        ax.set_xlabel("Exited")
+        ax.set_ylabel("Cantidad")
+        st.pyplot(fig)
+
+        st.write("""
+        Interpretación:
+        - Exited = 0 → Cliente permanece en el banco.
+        - Exited = 1 → Cliente abandona el banco.
+        """)
+
+    else:
+        st.error("La columna 'Exited' no existe en el dataset.")
+# 3.- Visualización de información relevante
+modulo = st.sidebar.selectbox("Visualización de información Relevante:", ["Selecciona",
+                                                                          "Relación de Clientes Activos versus Clientes que se han ido", 
+                                                                          "Relación de Años de permanencia laboral versus Clientes que han abandonado", 
                                                                              "Relación de Número de Productos versus Clientes que se han abandonado", 
                                                                              "Relación de Género del Cliente versus Clientes que se han abandonado", 
                                                                              "Cantidad de clientes que permanecen (0) vs. clientes que abandonaron (1)", 
@@ -147,7 +304,7 @@ moduloPresentacionResultados = st.sidebar.selectbox("Presentación Resultados:",
 contenido = st.empty()
 
 # Si no hay selección → pantalla limpia
-if modulo == "Selecciona" and moduloPresentacionResultados == "Selecciona":
+if exploracion =="Selecciona" and modulo == "Selecciona" and moduloPresentacionResultados == "Selecciona":
     contenido.empty()
     
 if moduloPresentacionResultados  == "Selecciona":
