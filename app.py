@@ -412,7 +412,8 @@ elif moduloPresentacionResultados == "Modelo XGBoost":
         
         # Realizar predicciones
         y_pred_xgb = xgb_model.predict(X_test)
-        
+
+        from sklearn.metrics import classification_report
         # Ver resultados
         print("--- Rendimiento del Modelo XGBoost ---")
         print(classification_report(y_test, y_pred_xgb))
