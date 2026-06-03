@@ -342,7 +342,7 @@ if moduloPresentacionResultados  == "Selecciona":
 elif moduloPresentacionResultados  == "Modelo Random Forest":
         # Espacio donde se mostrará todo
         with contenido.container():
-            st.title("Random Forest")
+            st.subtitle("Random Forest")
             st.write("Aquí salen los datos del modelo")
 
         # 2.1. Modelo 1
@@ -394,6 +394,11 @@ elif moduloPresentacionResultados  == "Modelo Random Forest":
         st.text(classification_report(y_test, y_pred))
 
 elif moduloPresentacionResultados == "Modelo XGBoost":
+        # Espacio donde se mostrará todo
+        with contenido.container():
+            st.subtitle("Random XGBoost")
+            st.write("Aquí salen los datos del modelo")
+
         from xgboost import XGBClassifier
 
         # Definimos el modelo XGBoost
